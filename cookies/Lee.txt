@@ -3,7 +3,7 @@
 # This is a generated file!  Do not edit.
 
 .youtube.com	TRUE	/	TRUE	1745977815	GPS	1
-.youtube.com	TRUE	/	TRUE	1780536051	PREF	tz=Asia.Tokyo
+.youtube.com	TRUE	/	TRUE	1780536051	PREF	tz=Asia.Yangon
 .youtube.com	TRUE	/	TRUE	1777512050	__Secure-1PSIDTS	sidts-CjIBjplskF7blHiE5zRkgl_YZNwVB4AxwQNJ_0Tx8jJBnTIo_5CoO5FolQZ4Aht0NxulhBAA
 .youtube.com	TRUE	/	TRUE	1777512050	__Secure-3PSIDTS	sidts-CjIBjplskF7blHiE5zRkgl_YZNwVB4AxwQNJ_0Tx8jJBnTIo_5CoO5FolQZ4Aht0NxulhBAA
 .youtube.com	TRUE	/	FALSE	1780536050	HSID	ANOHkWWiloQdsklbS
