@@ -2,7 +2,7 @@ services:
   - type: worker
     name: maythusharmusicvv2
     env: python
-    region: oregon
+    region: singapore
     plan: pro
     buildCommand: pip3 install --no-cache-dir --upgrade --requirement requirements.txt
     startCommand: bash start
