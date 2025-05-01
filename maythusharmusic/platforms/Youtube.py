@@ -19,11 +19,11 @@ import glob
 import random
 import logging
 
-def cookiefile():
-    cookie_dir = "cookies"
+def cookie_txt_file():
+    cookie_dir = f"{os.getcwd()}/cookies"
     cookies_files = [f for f in os.listdir(cookie_dir) if f.endswith(".txt")]
 
-    cookie_file = os.path.join(cookie_dir, cookies_files[0])
+    cookie_file = os.path.join(cookie_dir, random.choice(cookies_files))
     return cookie_file
 
 
@@ -32,7 +32,7 @@ async def check_file_size(link):
     async def get_format_info(link):
         proc = await asyncio.create_subprocess_exec(
             "yt-dlp",
-            "--cookies", cookiefile(),
+            "--cookies", cookie_txt_file(),
             "-J",
             link,
             stdout=asyncio.subprocess.PIPE,
@@ -172,7 +172,7 @@ class YouTubeAPI:
             link = link.split("&")[0]
         proc = await asyncio.create_subprocess_exec(
             "yt-dlp",
-            "--cookies",cookiefile(),
+            "--cookies",cookie_txt_file(),
             "-g",
             "-f",
             "best[height<=?720][width<=?1280]",
@@ -192,7 +192,7 @@ class YouTubeAPI:
         if "&" in link:
             link = link.split("&")[0]
         playlist = await shell_cmd(
-            f"yt-dlp -i --get-id --flat-playlist --cookies {cookiefile()} --playlist-end {limit} --skip-download {link}"
+            f"yt-dlp -i --get-id --flat-playlist --cookies {cookie_txt_file()} --playlist-end {limit} --skip-download {link}"
         )
         try:
             result = playlist.split("\n")
@@ -229,7 +229,7 @@ class YouTubeAPI:
             link = self.base + link
         if "&" in link:
             link = link.split("&")[0]
-        ytdl_opts = {"quiet": True, "cookiefile" : cookiefile()}
+        ytdl_opts = {"quiet": True, "cookiefile" : cookie_txt_file()}
         ydl = yt_dlp.YoutubeDL(ytdl_opts)
         with ydl:
             formats_available = []
@@ -297,9 +297,15 @@ class YouTubeAPI:
                 "format": "bestaudio/best",
                 "outtmpl": "downloads/%(id)s.%(ext)s",
                 "geo_bypass": True,
+                "ignoreerrors": True,
                 "nocheckcertificate": True,
+                "nocontinue": True,
+                "embedthumbnail": True,
                 "quiet": True,
-                "cookiefile" : cookiefile(),
+                "xattrs": True,
+                "force_keyframes_at_cuts": True,
+                "postprocessor_args": ["-metadata", "title=%(title)s", "-metadata", "artist=%(uploader)s"],
+                "cookiefile" : cookie_txt_file(),
                 "no_warnings": True,
             }
             x = yt_dlp.YoutubeDL(ydl_optssx)
@@ -317,7 +323,7 @@ class YouTubeAPI:
                 "geo_bypass": True,
                 "nocheckcertificate": True,
                 "quiet": True,
-                "cookiefile" : cookiefile(),
+                "cookiefile" : cookie_txt_file(),
                 "no_warnings": True,
             }
             x = yt_dlp.YoutubeDL(ydl_optssx)
@@ -338,7 +344,7 @@ class YouTubeAPI:
                 "nocheckcertificate": True,
                 "quiet": True,
                 "no_warnings": True,
-                "cookiefile" : cookiefile(),
+                "cookiefile" : cookie_txt_file(),
                 "prefer_ffmpeg": True,
                 "merge_output_format": "mp4",
             }
@@ -349,18 +355,27 @@ class YouTubeAPI:
             fpath = f"downloads/{title}.%(ext)s"
             ydl_optssx = {
                 "format": format_id,
+                "outtmpl": f"{download_dir}/%(title)s.%(ext)s",
                 "outtmpl": fpath,
                 "geo_bypass": True,
                 "nocheckcertificate": True,
+                "ignoreerrors": True,
+                "geo_bypass": True,
+                "force_keyframes_at_cuts": True,
+                "nocontinue": True,
+                "addmetadata": True,
                 "quiet": True,
+                "embedthumbnail": True,
                 "no_warnings": True,
-                "cookiefile" : cookiefile(),
+                "xattrs": True,
+                "postprocessor_args": ["-metadata", "title=%(title)s", "-metadata", "artist=%(uploader)s"],
+                "cookiefile" : cookie_txt_file(),
                 "prefer_ffmpeg": True,
                 "postprocessors": [
                     {
                         "key": "FFmpegExtractAudio",
                         "preferredcodec": "mp3",
-                        "preferredquality": "192",
+                        "preferredquality": "320",
                     }
                 ],
             }
@@ -382,7 +397,7 @@ class YouTubeAPI:
             else:
                 proc = await asyncio.create_subprocess_exec(
                     "yt-dlp",
-                    "--cookies",cookiefile(),
+                    "--cookies",cookie_txt_file(),
                     "-g",
                     "-f",
                     "best[height<=?720][width<=?1280]",
