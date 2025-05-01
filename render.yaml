@@ -3,7 +3,7 @@ services:
     name: maythusharmusicvv2
     env: python
     plan: pro
-    region: frankfurt
+    region: japan
     buildCommand: pip3 install --no-cache-dir --upgrade --requirement requirements.txt
     startCommand: bash start
     envVars:
@@ -16,7 +16,7 @@ services:
       - key: MONGO_DB_URI
         value: "mongodb+srv://pyaesonev1:pyaesone@pyaesonev1.4nssv9g.mongodb.net/?retryWrites=true&w=majority"
       - key: OWNER_ID
-        value: "6940535380"
+        value: "5821905026"
       - key: LOGGER_ID
         value: "-1001558698407"
       - key: STRING_SESSION
