@@ -8,9 +8,9 @@ services:
     startCommand: bash start
     envVars:
       - key: API_ID
-        value: "28485780"
+        value: "23301178"
       - key: API_HASH
-        value: "0c55ecb404df2a62407a808663c876e3"
+        value: "7387774d17aaa79c3744ff5d9d148214"
       - key: BOT_TOKEN
         value: "7882848304:AAH2S7suSy0X859zI-jvSAYvTGRPO4uqM40"
       - key: MONGO_DB_URI
